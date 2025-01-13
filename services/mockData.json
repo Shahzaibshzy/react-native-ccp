@@ -1,0 +1,30 @@
+{
+  "teachers": [
+    {
+        
+          "id": 1,
+          "name": "ShahzaIB",
+          "courses": [
+            { "id": 101, "name": "Operating Systems", "code": "CS203" },
+            { "id": 102, "name": "Database Systems", "code": "CS204" }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Abdul Rehman",
+          "courses": [
+            { "id": 201, "name": "Data Structures", "code": "CS201" },
+            { "id": 202, "name": "Algorithms", "code": "CS202" }
+          
+        
+      ]
+    }
+    
+  ],
+  "courses": [
+    { "id": 1, "name": "Data Structures", "code": "CS201" },
+    { "id": 2, "name": "Algorithms", "code": "CS202" },
+    { "id": 3, "name": "Operating Systems", "code": "CS203" },
+    { "id": 4, "name": "Database Systems", "code": "CS204" }
+  ]
+}
