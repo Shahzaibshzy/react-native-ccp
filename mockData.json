@@ -1,0 +1,23 @@
+{
+  "teachers": [
+    {
+      "id": "ea97",
+      "name": "shahzaib",
+      "courses": [
+        "database 101"
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "id": "7b61",
+      "name": "databse",
+      "code": "101"
+    },
+    {
+      "id": "4d3c",
+      "name": "computer science",
+      "code": "102"
+    }
+  ]
+}
