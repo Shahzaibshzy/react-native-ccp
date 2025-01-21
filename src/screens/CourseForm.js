@@ -8,6 +8,7 @@ const CourseFormScreen = ({ route, navigation }) => {
   const [courseName, setCourseName] = useState(course ? course.name : '');
   const [courseCode, setCourseCode] = useState(course ? course.code : '');
   const [localCourses, setLocalCourses] = useState([]);  // Temporary local array
+  const [error, setError] = useState(''); // To store error message
   const { colors } = useTheme();
 
   // Simulate loading courses from mock data (can replace with actual API call)
@@ -24,6 +25,11 @@ const CourseFormScreen = ({ route, navigation }) => {
   }, []);
 
   const handleSave = async () => {
+
+    if (!courseName || !courseCode) {
+      setError('Both fields are required');
+      return; // Prevent saving if any field is empty
+    }
     const newCourse = { name: courseName, code: courseCode, id: Date.now().toString() };
     
     // Temporarily store in the local array
@@ -63,6 +69,7 @@ const CourseFormScreen = ({ route, navigation }) => {
         value={courseCode}
         onChangeText={setCourseCode}
       />
+       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <Button title="Save" onPress={handleSave} color={colors.primary} />
     </View>
   );

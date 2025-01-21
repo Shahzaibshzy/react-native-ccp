@@ -6,10 +6,16 @@ import { useTheme } from '@react-navigation/native';
 const TeacherForm = ({ route, navigation }) => {
   const { teacher } = route.params || {}; // Receive the teacher object
   const [name, setName] = useState(teacher ? teacher.name : '');
+  const [error, setError] = useState(''); // To store error message
   const [id, setId] = useState(teacher ? teacher.id : '');
   const { colors } = useTheme();
 
   const handleSave = async () => {
+
+    if (!name || !id) {
+      setError('Both fields are required');
+      return; // Prevent saving if any field is empty
+    }
     const newTeacher = { id, name };
 
     try {
@@ -46,6 +52,7 @@ const TeacherForm = ({ route, navigation }) => {
         onChangeText={setId}
         keyboardType="numeric"
       />
+       {error ? <Text style={styles.errorText}>{error}</Text> : null}
       <Button title="Save" onPress={handleSave} color={colors.primary} />
     </View>
   );
