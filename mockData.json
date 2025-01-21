@@ -2,22 +2,27 @@
   "teachers": [
     {
       "id": "ea97",
-      "name": "shahzaib",
-      "courses": [
-        "database 101"
-      ]
+      "name": "shahzaibs"
+    },
+    {
+      "id": "1234",
+      "name": "dsaddas"
+    },
+    {
+      "id": "5678",
+      "name": "asd"
     }
   ],
   "courses": [
     {
-      "id": "7b61",
-      "name": "databse",
-      "code": "101"
+      "id": "5da3",
+      "name": "New Course",
+      "code": "NEW123"
     },
     {
-      "id": "4d3c",
-      "name": "computer science",
-      "code": "102"
+      "id": "ffd9",
+      "name": "New Course",
+      "code": "NEW123"
     }
   ]
 }
