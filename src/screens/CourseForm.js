@@ -1,20 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
-
 import { useTheme } from '@react-navigation/native';
+import axios from 'axios';
 
 const CourseFormScreen = ({ route, navigation }) => {
   const { course, onSave } = route.params || {};
   const [courseName, setCourseName] = useState(course ? course.name : '');
   const [courseCode, setCourseCode] = useState(course ? course.code : '');
+  const [localCourses, setLocalCourses] = useState([]);  // Temporary local array
   const { colors } = useTheme();
 
-  const handleSave = () => {
-    const newCourse = { name: courseName, code: courseCode };
-    console.log("Saving course in form: ", newCourse);  // Log to check
-    onSave(newCourse);  // Save course by calling onSave
-    navigation.goBack();  // Go back to the previous screen
+  // Simulate loading courses from mock data (can replace with actual API call)
+  useEffect(() => {
+    const loadCourses = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/courses');
+        setLocalCourses(response.data);  // Load existing courses from JSON Server
+      } catch (error) {
+        console.error('Error loading courses:', error.message);
+      }
+    };
+    loadCourses();
+  }, []);
+
+  const handleSave = async () => {
+    const newCourse = { name: courseName, code: courseCode, id: Date.now().toString() };
+    
+    // Temporarily store in the local array
+    setLocalCourses((prev) => [...prev, newCourse]);
+    
+    try {
+      // Send to JSON server
+      await axios.post('http://localhost:3000/courses', newCourse);
+      console.log("Course added:", newCourse);
+    } catch (error) {
+      console.error('Error saving course:', error.message);
+    }
+
+    // Update parent component with the new course
+    onSave(newCourse);
+
+    // Go back to the previous screen
+    navigation.goBack();
   };
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.header, { color: colors.text }]}>

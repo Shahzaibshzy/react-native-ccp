@@ -57,26 +57,34 @@ const App = () => {
   // Handlers for courses
   const handleSaveCourse = async (course) => {
     try {
-      if (course.id) {
-        // Update existing course
-        const response = await axios.put(`http://localhost:3000/courses/${course.id}`, course);
-        console.log('Course updated:', response.data); // Check the response
-        setCourses((prev) =>
-          prev.map((c) => (c.id === course.id ? course : c))
-        );
-      } else {
-        // Add new course
-        const response = await axios.post('http://localhost:3000/courses', {
-          ...course,
-          id: Date.now().toString(), // Ensure unique ID
-        });
-        console.log('New course added:', response.data); // Check the response
-        setCourses((prev) => [...prev, response.data]);
-      }
+      // Ensure the course object includes an ID
+      const newCourse = {
+        ...course, // Spread existing course fields
+        id: Date.now().toString(), // Add a unique ID
+      };
+  
+      // Log the full object to confirm `id` is included
+      console.log('Sending course:', newCourse);
+  
+      // Send the course to the server
+      const response = await axios.post('http://localhost:3000/courses', newCourse);
+  
+  
+      // Update the state with the newly saved course
+      setCourses((prev) => [...prev, response.data]);
     } catch (error) {
       console.error('Error saving course:', error.message);
     }
   };
+  
+  
+  // When component loads, retrieve courses from local storage
+  useEffect(() => {
+    const storedCourses = localStorage.getItem('courses');
+    if (storedCourses) {
+      setCourses(JSON.parse(storedCourses));
+    }
+  }, []);
 
   return (
     <NavigationContainer theme={theme}>
